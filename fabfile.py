@@ -3,17 +3,22 @@
 
 from fabric.api import *
 from fabric.operations import sudo
-env.user = ''
-env.hosts = ['']
-env.password = ''
+from config import ip,domain,username,password,gitHome,UserName,PassWord
+#env.user = 'ubuntu'
+#env.hosts = ['106.54.225.43']
+#env.password = 'ZYMzym980413~!@'
 
-gitHome = 'https://github.com/isamxus/blogManagement.git'
-#domain = 'www.amxus.info''
+env.user = username
+env.hosts = [ip]
+env.password = password
+gitHome = gitHome
+domain = domain
+#domain = 'www.yimingz.club'
 
 
 class deploySettings(object):
-	UserName = None
-	PassWord = None
+	UserName = UserName
+	PassWord = PassWord
 	#创建用户
 	def createUser(self):
 		Pass = False
@@ -108,14 +113,19 @@ def init():
 
 #初始化博客数据
 def initData():
-	UserName = input('请输入用户名')
 	with cd('/home/' + UserName + '/blogManagement'):
 		run('python3 InitBlogData.py')
 
 #更新代码
 def update():
-	UserName = input('请输入用户名')
 	with cd('/home/' + UserName + '/blogManagement'):
 		run('git fetch -v --progress "https://github.com/isamxus/blogManagement.git" ljc')
 		run('git merge FETCH_HEAD')
+	exp = deploySettings()
+	exp.gunicornSetting()
 
+
+
+def test():
+	with cd('..'):
+		local('dir')
