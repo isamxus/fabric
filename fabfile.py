@@ -4,16 +4,13 @@
 from fabric.api import *
 from fabric.operations import sudo
 from config import ip,domain,username,password,gitHome,UserName,PassWord
-#env.user = 'ubuntu'
-#env.hosts = ['106.54.225.43']
-#env.password = 'ZYMzym980413~!@'
 
 env.user = username
 env.hosts = [ip]
 env.password = password
 gitHome = gitHome
 domain = domain
-#domain = 'www.yimingz.club'
+
 
 
 class deploySettings(object):
@@ -28,12 +25,6 @@ class deploySettings(object):
 				continue
 			if not self.PassWord:
 				self.PassWord = input('请输入密码')
-				continue
-			ConfirmPassWord = input('请再次输入密码')
-			if ConfirmPassWord != self.PassWord:
-				print('两次输入密码不一致')
-				self.UserName = None
-				self.PassWord = None
 				continue
 			Pass = True
 		with settings(warn_only=True):
