@@ -110,13 +110,8 @@ def initData():
 #更新代码
 def update():
 	with cd('/home/' + UserName + '/blogManagement'):
-		run('git fetch -v --progress "https://github.com/isamxus/blogManagement.git" ljc')
+		run('git fetch -v --progress ' + gitHome + ' ljc')
 		run('git merge FETCH_HEAD')
 	exp = deploySettings()
 	exp.gunicornSetting()
 
-
-
-def test():
-	with cd('..'):
-		local('dir')
